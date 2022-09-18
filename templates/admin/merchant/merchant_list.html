@@ -1,0 +1,113 @@
+{% extends 'admin/base.html' %}
+
+{% block title%}
+Merchant User
+{% endblock title%}
+
+
+{% block page_title %}
+Merchant Users
+{% endblock page_title %}
+
+{% block page_content %}
+    <div class="row">
+        {% for merchantuser in merchantuser_list %}
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <article class="article article-style-b">
+            <div class="article-header">
+                <div class="article-image" data-background="{{ merchantuser.profile_pic }}" >
+                </div>
+                <div class="article-badge">
+                <div class="article-badge-item bg-danger"> {{merchantuser.auth_user_id.username}}</div>
+                </div>
+            </div>
+            <div class="article-details">
+                <div class="article-title">
+                <p><span class="badge badge-warning">Name: {{merchantuser.auth_user_id.first_name}}{{merchantuser.auth_user_id.last_name}}</span> </span></p>
+                <p><span class="badge badge-info">Email_id: {{merchantuser.auth_user_id.email}}</span> </span></p>
+            
+                </div>
+                
+                <div class="article-cta">
+                    <div class="form-group">
+                        <label class="custom-switch mt-2" style="float:left">
+                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" {% if category.is_active == 1 %}checked{% endif %}>
+                        <span class="custom-switch-indicator"></span>
+                        <span class="custom-switch-description">Active</span>
+                        </label>
+                    </div>
+                <a href="{% url 'merchant_list'%}" class="btn btn-primary">Edit <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Merchant Data</h4>
+              <div class="card-header-form">
+                <form>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                      <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <tbody>
+                    <tr>
+                    
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email_id</th>
+                        <th>Username</th>
+                        <th>Address</th>
+                        <th>Company</th>
+                        <th>GST no.</th>
+                        <th>Added By Admin</th>
+                        <th>Is Active</th>
+                        <th>Action</th>
+                    </tr>
+                  {% for merchantuser in merchantuser_list %}
+                    <tr>
+                        <td class="p-0 text-center">
+                        {{merchantuser.auth_user_id.id}}
+                        </td>
+                        <td>{{merchantuser.auth_user_id.first_name}}{{merchantuser.auth_user_id.last_name}}</td>
+                        <td class="align-middle">
+                            {{merchantuser.auth_user_id.email}}
+                        </td>
+                        <td class="align-middle">
+                            {{merchantuser.auth_user_id.username}}
+                        </td>
+                        <td class="align-middle">
+                          {{merchantuser.address}}
+                        </td>
+                        {% comment %} <td>
+                        <img alt="image" src="{{merchantuser.profile_pic}}" class="rounded-circle" width="35" data-toggle="tooltip" title="" data-original-title="Wildan Ahdian">
+                        </td> {% endcomment %}
+                        <td>{{merchantuser.company_name}}</td>
+                        <td>{{merchantuser.gst_details}}</td>
+                        <td>{{merchantuser.is_added_by_admin}}</td>
+                        <td>{{merchantuser.auth_user_id.is_active}}</td>
+                        <td><a href="{% url 'merchant_update' merchantuser.auth_user_id.id %}" class="btn btn-secondary">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock page_content %}
+

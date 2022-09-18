@@ -1,0 +1,115 @@
+{% load static %}
+<div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+      <div class="sidebar-brand">
+        <a href="/"><img src="{% static '/img/logo.png' %}" alt="" style="height: 85px"></a>
+      </div>
+      <div class="sidebar-brand sidebar-brand-sm">
+        <a href="/"><img src="{% static '/img/logo.png' %}" alt="" style="height: 50px"></a>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="menu-header">Dashboard</li>
+
+        {%url 'category_list' as category_list %}
+        {%url 'category_create' as category_create %}
+        {%url 'category_update' id as category_update %}
+
+        <li class="dropdown {% if request.path == category_list or request.path == category_create %}active{% endif %}">
+          <a href="#" class="nav-link has-dropdown"><i class="fas fa-layer-group"></i><span>Category</span></a>
+          <ul class="dropdown-menu">
+            <li class='{% if request.path == category_list  %} active {% endif %}'>
+              <a class="nav-link" href="{% url 'category_list'%}">All Categories</a>
+            </li>
+            <li class='{% if request.path == category_create or request.path == category_update %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'category_create'%}">Add Categories</a>
+            </li>
+          </ul>
+        </li>
+
+        <!--SUBCATEGORY MENU -->
+        
+        {% url 'sub_category_list' as sub_category_list %}
+        {% url 'sub_category_create' as sub_category_create %}
+        {% url 'sub_category_update' id as sub_category_update %}
+
+        <li class="dropdown {% if request.path == sub_category_list or request.path == sub_category_create %}active{% endif %}">
+          <a href="#" class="nav-link has-dropdown"><i class="fas fa-layer-group"></i><span>Sub Category</span></a>
+          <ul class="dropdown-menu">
+            <li class='{% if request.path == sub_category_list  %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'sub_category_list'%}">All Sub-Categories</a>
+            </li>
+            <li class='{% if request.path == sub_category_create or request.path == sub_category_update %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'sub_category_create'%}">Add Sub-Categories</a>
+            </li>
+          </ul>
+        </li>
+
+        <!--MERCHANTUSER MENU -->
+        
+       
+        {% url 'merchant_list' as merchant_list %}
+        {% url 'merchant_create' as merchant_create %}
+        {% url 'merchant_update' id as merchant_update %}
+        
+
+        <li class="dropdown {% if request.path == merchant_create or request.path == merchant_list %}active{% endif %}">
+          <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i><span>Merchant User</span></a>
+          <ul class="dropdown-menu">
+            <li class='{% if request.path == merchant_create or request.path == merchant_update %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'merchant_create'%}">Add Merchant</a>
+            </li>
+            <li class='{% if request.path == merchant_list %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'merchant_list'%}">All Merchants</a>
+            </li>
+            
+          </ul>
+        </li>
+
+        {% url 'staff_list' as staff_list %}
+        {% url 'staff_create' as staff_create %}
+        {% url 'staff_update' id as staff_update %}
+        
+
+        <li class="dropdown {% if request.path == staff_create or request.path == staff_list %}active{% endif %}">
+          <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i><span>Staff User</span></a>
+          <ul class="dropdown-menu">
+            <li class='{% if request.path == staff_create or request.path == staff_update %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'staff_create'%}">Add Staff</a>
+            </li>
+            <li class='{% if request.path == staff_list %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'staff_list'%}">All Staff</a>
+            </li>
+            
+          </ul>
+        </li>
+
+        {% url 'product_create' as product_create %}
+        {% url 'product_list' as product_list %}
+        {% url 'product_update' id as product_update %}
+        
+
+        <li class="dropdown {% if request.path == product_create or request.path == product_list %}active{% endif %}">
+          <a href="#" class="nav-link has-dropdown"><i class="fas fa-gift"></i><span>Products</span></a>
+          <ul class="dropdown-menu">
+            <li class='{% if request.path == product_create or request.path == product_update %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'product_create'%}">Add Product</a>
+            </li>
+            <li class='{% if request.path == product_list %}active{% endif %}'>
+              <a class="nav-link" href="{% url 'product_list'%}">All Product</a>
+            </li>
+            
+            
+          </ul>
+        </li>
+
+        
+        
+      </ul>
+
+      <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+        <a href="{% url 'admin_logout'%}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+          <i class="fas fa-rocket"></i>LOGOUT
+        </a>
+      </div>        
+    </aside>
+  </div>

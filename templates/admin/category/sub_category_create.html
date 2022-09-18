@@ -1,0 +1,57 @@
+{% extends 'admin/base.html' %}
+
+{% block title%}
+Add SubCategory
+{% endblock title%}
+
+
+{% block page_title %}
+Add SubCategory
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>SubCategories</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form  %}
+                        <div class="form-group">
+                            <label>{{field.label}}</label>
+                            {% if field.field.widget.input_type != 'select' %}
+                                <input type="{{field.field.widget.input_type}}" 
+                                        name="{{field.name}}" 
+                                        id="{{field.name}}"
+                                        class="form-control" 
+                                        required >
+                            {% endif %}
+                            {% if field.field.widget.input_type == 'select' %}
+                                <select name="{{field.name}}" 
+                                        id="{{field.name}}"
+                                        class="form-control" 
+                                        required >
+                                        {% for id,value in field.field.choices  %}
+                                            <option value="{{id}}">{{value}}</option>
+                                        {% endfor %}
+                                </select>
+                            {% endif %}
+                            {% if field.errors %}
+                            <div class="alert alert-danger" style="margin:10px">
+                                {{field.errors}}
+                            </div> 
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
+

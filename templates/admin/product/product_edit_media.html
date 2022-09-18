@@ -1,0 +1,74 @@
+{% extends 'admin/base.html' %}
+
+{% block title%}
+Product
+{% endblock title%}
+
+
+{% block page_title %}
+Product Media
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Edit Media #{{product.id}} : {{product.product_name}}</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                            
+                                <th>ID</th>
+                                <th>Media</th>
+                                <th>Action</th>
+                            </tr>
+                            {% for product_media in product_medias  %}
+                                <tr>
+                                    <td class="align_middle">
+                                    5
+                                    </td>
+                                    {% if product_media.media_type == "1" %}
+                                    <td class="align-middle" >
+                                        <img src="{{product_media.media_content}}" style="height:100px;margin: 5px;"/>
+                                    </td>
+                                    {% endif %}
+                                    {% if product_media.media_type == "2" %}
+                                    <td class="align-middle">
+                                        <video src="{{product_media.media_content}}" style="height:100px;margin: 5px;" controls></video>
+                                    </td>
+                                    {% endif %}
+                                    
+                                    <td><button class="btn btn-danger delete_product" data-location="{% url 'product_delete_media' id=product_media.id %}">Delete</button></td>
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
+
+{% block custom_js %} 
+    <script>
+        $(".delete_product").click(function(){
+            var url_id=$(this).data("location");
+            console.log("id: " + url_id);
+            var cnf=confirm("Are you sure you want to delete?");
+            if(cnf){
+                location=url_id;
+               
+            }
+        })
+
+
+    </script>
+
+{% endblock custom_js %}
+

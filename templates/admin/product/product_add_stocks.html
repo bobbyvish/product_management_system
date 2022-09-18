@@ -1,0 +1,40 @@
+{% extends 'admin/base.html' %}
+
+{% block title%}
+Product
+{% endblock title%}
+
+
+{% block page_title %}
+Product Stock
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Add Stock #{{product.id}} : {{product.product_name}}</h4>
+            </div>
+            <div class="card-body">
+                <p>Current_stock: {{product.in_stock_total}}</p>
+                <br/>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="product_name">Add Stock</label>
+                    <input type="text" class="form-control" name="add_stocks" placeholder="stock">
+                    <br/>
+                    <button type="submit" class="btn btn-primary btn-block">Add stocks</button> 
+                          
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
+
+{% block custom_js %} 
+    
+
+{% endblock custom_js %}
+

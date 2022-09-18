@@ -1,0 +1,74 @@
+{% extends 'admin/base.html' %}
+
+{% block title%}
+staff User
+{% endblock title%}
+
+
+{% block page_title %}
+staff Users
+{% endblock page_title %}
+
+{% block page_content %}
+
+<div class="row">
+    <div class="col-lg-12 ">
+      <div class="search-element">
+        <div class="card">
+          <div class="card-header">
+            <h4>Sort By:-</h4>
+            <h4><a href="{% url 'staff_list'%}?filter={{filter}}&orderby=id">Id</a></h4> | 
+            <h4> <a href="{% url 'staff_list' %}?filter={{ filter }}&orderby=create_at">Newest</a></h4> | 
+            <h4><a href="{% url 'staff_list' %}?filter={{ filter }}&orderby=auth_user_id__first_name">First Name</a></h4> 
+            <h4><a href="{% url 'staff_list' %}?filter={{ filter }}&orderby=auth_user_id__username">Username</a></h4>
+            <form class="card-header-form">
+              <div class="input-group">
+                <input type="text" name="filter" value="{{value}}" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                  <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+        {% for staffuser in staffuser_list %}
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <article class="article article-style-b">
+            <div class="article-header">
+                <div class="article-image" data-background="{{ staffuser.profile_pic }}" >
+                </div>
+                <div class="article-badge">
+                <div class="article-badge-item bg-danger"> {{staffuser.auth_user_id.username}}</div>
+                </div>
+            </div>
+            <div class="article-details">
+                <div class="article-title">
+                <p><span class="badge badge-warning">Name: {{staffuser.auth_user_id.first_name}}{{staffuser.auth_user_id.last_name}}</span> </span></p>
+                <p><span class="badge badge-info">Email_id: {{staffuser.auth_user_id.email}}</span> </span></p>
+            
+                </div>
+                
+                <div class="article-cta">
+                    <div class="form-group">
+                        <label class="custom-switch mt-2" style="float:left">
+                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" {% if staffuser.auth_user_id.is_active == 1 %}checked{% endif %}>
+                        <span class="custom-switch-indicator"></span>
+                        <span class="custom-switch-description">Active</span>
+                        </label>
+                    </div>
+                <a href="{% url 'staff_update' staffuser.auth_user_id.id %}" class="btn btn-primary">Edit <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+            </article>
+        </div>
+        {% endfor %}
+    </div>
+
+    
+{% endblock page_content %}
+
